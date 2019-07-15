@@ -19,7 +19,7 @@ Sistem Laboratorium Mamuju</h3>
 <div class="input-group-prepend">
 <span class="input-group-text bg-warning text-white" id="basic-addon2"><i class="ti-pencil"></i></span>
 </div>
-<input type="text" name="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" required="">
+    <input type="password" name="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" required="">
 </div>
 </div>
 </div>

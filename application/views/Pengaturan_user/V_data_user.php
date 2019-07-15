@@ -1,5 +1,5 @@
 <div id="main-wrapper">
-<?php $this->load->view('umum/V_topbar') ?>
+<?php $this->load->view('umum/V_topbar_pengaturan_user') ?>
 <?php $this->load->view('umum/V_sidebar_user') ?>
 <div class="page-wrapper">
 <div class="container-fluid">
@@ -19,6 +19,7 @@
 <th  align="center" aria-controls="datatable-fixed-header" >Nama lengkap</th>
 <th  align="center" aria-controls="datatable-fixed-header" >Username</th>
 <th  align="center" aria-controls="datatable-fixed-header" >Status</th>
+<th  align="center" aria-controls="datatable-fixed-header" >Level Pekerjaan</th>
 <th  align="center" aria-controls="datatable-fixed-header" >Aksi</th>
 </thead>
 <tbody align="center">
@@ -103,6 +104,7 @@ columns: [
 {"data": "nama_lengkap"},
 {"data": "username"},
 {"data": "status"},
+{"data": "level_pekerjaan"},
 {"data": "view"}
 
 ],

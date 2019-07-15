@@ -7,22 +7,27 @@ public function __construct() {
 $this->load->model('M_pengaturan_user');
 $this->load->library('Datatables');
 $this->load->library('email');
+
+if($this->session->userdata('level_pekerjaan') !='Super Admin'){
+redirect(base_url('Loginadmin'));    
+}
+
 }
 
 
 public function index(){
-$this->load->view('umum/V_header');
-$this->load->view('pengaturan_user/V_pengaturan_user');
+$this->input_customer();
+    
 }
 
 public function input_user(){
 $this->load->view('umum/V_header');
-$this->load->view('pengaturan_user/V_input_user');    
+$this->load->view('Pengaturan_user/V_input_user');    
 }
 
 public function input_customer(){
 $this->load->view('umum/V_header');
-$this->load->view('pengaturan_user/V_input_customer');    
+$this->load->view('Pengaturan_user/V_input_customer');    
 }
 
 public function json_data_user(){
@@ -72,7 +77,7 @@ echo json_encode($status);
 
 public function data_user(){
 $this->load->view('umum/V_header');
-$this->load->view('pengaturan_user/V_data_user');   
+$this->load->view('Pengaturan_user/V_data_user');   
 }
 public function hapus_user(){
 if($this->input->post()){
@@ -171,11 +176,17 @@ redirect(404);
 
 public function data_customer(){
 $this->load->view('umum/V_header');
-$this->load->view('pengaturan_user/V_data_customer');   
+$this->load->view('Pengaturan_user/V_data_customer');   
 }
 
 public function json_data_customer(){
 echo $this->M_pengaturan_user->json_data_customer();       
+}
+
+public function logout(){
+$this->session->sess_destroy();
+redirect(base_url('Loginadmin'));    
+
 }
 
 }

@@ -1,5 +1,5 @@
 <div id="main-wrapper">
-<?php $this->load->view('umum/V_topbar') ?>
+<?php $this->load->view('umum/V_topbar_customer') ?>
 <?php $this->load->view('umum/V_sidebar_customer') ?>
 <div class="page-wrapper">
 <div class="container-fluid">

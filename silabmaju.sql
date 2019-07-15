@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
--- https://www.phpmyadmin.net/
+-- version 4.5.4.1deb2ubuntu2.1
+-- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Jul 14, 2019 at 09:25 AM
--- Server version: 10.3.15-MariaDB
--- PHP Version: 7.3.6
+-- Host: localhost
+-- Generation Time: Jul 16, 2019 at 05:38 AM
+-- Server version: 5.7.26-log
+-- PHP Version: 7.0.33-0ubuntu0.16.04.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -34,11 +32,20 @@ CREATE TABLE `anamnesa` (
   `pelaksana1` char(50) NOT NULL,
   `pelaksana2` char(50) NOT NULL,
   `lokasi_sampel` varchar(100) NOT NULL,
-  `cek_parasit` varchar(2) NOT NULL,
-  `cek_virus` varchar(2) NOT NULL,
-  `cek_bakteri` varchar(2) NOT NULL,
-  `cek_jamur` varchar(2) NOT NULL
+  `cek_parasit` varchar(20) NOT NULL,
+  `cek_virus` varchar(20) NOT NULL,
+  `cek_bakteri` varchar(20) NOT NULL,
+  `cek_jamur` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `anamnesa`
+--
+
+INSERT INTO `anamnesa` (`id_anamnesa`, `id_sampel`, `pelaksana1`, `pelaksana2`, `lokasi_sampel`, `cek_parasit`, `cek_virus`, `cek_bakteri`, `cek_jamur`) VALUES
+('A0002', 'S0001', 'asd', 'asd', 'asd', 'aktif', 'aktif', 'undefined', 'undefined'),
+('A0003', 'S0001', 'asd', 'asd', 'asd', 'aktif', 'aktif', 'undefined', 'undefined'),
+('C0002', 'S0001', 'asd', 'asd2', 'asd', 'undefined', 'aktif', 'aktif', 'undefined');
 
 -- --------------------------------------------------------
 
@@ -86,15 +93,22 @@ CREATE TABLE `data_hasil_lab` (
 
 CREATE TABLE `data_sampel` (
   `id_sampel` char(10) NOT NULL,
-  `id_anamnesa` char(100) NOT NULL,
   `id_customer` char(100) NOT NULL,
   `jenis_sampel` varchar(100) NOT NULL,
   `berat_sampel` int(11) NOT NULL,
   `deskripsi_sampel` varchar(100) NOT NULL,
   `tgl_input` date NOT NULL,
   `gejala` char(50) NOT NULL,
-  `asal_sampel` char(50) NOT NULL
+  `asal_sampel` char(50) NOT NULL,
+  `status_sampel` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `data_sampel`
+--
+
+INSERT INTO `data_sampel` (`id_sampel`, `id_customer`, `jenis_sampel`, `berat_sampel`, `deskripsi_sampel`, `tgl_input`, `gejala`, `asal_sampel`, `status_sampel`) VALUES
+('S0001', 'C0001', 'Ikan Betutut', 10, 'Ikan betutut mau sekarat', '2019-07-14', 'kurang tau', 'kolong langit', 'Proses');
 
 -- --------------------------------------------------------
 
@@ -118,7 +132,9 @@ CREATE TABLE `data_user` (
 --
 
 INSERT INTO `data_user` (`id_user`, `nama_depan`, `nama_belakang`, `nama_lengkap`, `status`, `level_pekerjaan`, `username`, `password`) VALUES
-('U0002', 'roni', 'alfiansyah', 'roni alfiansyah', 'Aktif', 'Super Admin', 'roni', '$2y$10$.2htCeUH5e54jAXSc7nTUeczevI50omA6MPZKKHbcLncbIj4W/Jwq');
+('U0001', 'Dedi', 'Ibrahim', 'Dedi Ibrahim', 'Aktif', 'Super Admin', 'admin', '$2y$10$dChcw.5A5FNwZ8qMq1vUXOe.1te44o3diIKq33rF9HHky5s0pXY.a'),
+('U0002', 'Zaenudin', 'Ngaciro', 'Zaenudin Ngaciro', 'Aktif', 'Nekropsi', 'user', '$2y$10$MWEJ4yJSEqsdLrlE.hRHDu4ts06UCH18wubPUdEjjzJlFaS3VcIbi'),
+('U0003', 'anamnesa', 'anamnesa', 'anamnesa anamnesa', 'Aktif', 'Nekropsi', 'anamnesa', '$2y$10$hfA.UsExr48krbldvENROuT1SBCYDfQ.BV1XT3Zs9fmwJKrk6Ggbm');
 
 -- --------------------------------------------------------
 
@@ -141,7 +157,6 @@ CREATE TABLE `disposisi` (
 --
 
 CREATE TABLE `kaji_ulang` (
-  `id_kaji_ulang` char(10) NOT NULL,
   `id_anamnesa` char(10) NOT NULL,
   `kesiapan_personel` char(2) NOT NULL,
   `kondisi_akomodasi` char(2) NOT NULL,
@@ -149,6 +164,15 @@ CREATE TABLE `kaji_ulang` (
   `kondisi_peralatan` char(2) NOT NULL,
   `kesesuaian_metode` char(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kaji_ulang`
+--
+
+INSERT INTO `kaji_ulang` (`id_anamnesa`, `kesiapan_personel`, `kondisi_akomodasi`, `beban_pekerjaan`, `kondisi_peralatan`, `kesesuaian_metode`) VALUES
+('C0002', 'si', 'si', 'si', 'si', 'si'),
+('A0002', 'si', 'si', 'si', 'si', 'si'),
+('A0003', 'si', 'si', 'si', 'si', 'si');
 
 -- --------------------------------------------------------
 
@@ -238,8 +262,7 @@ ALTER TABLE `data_hasil_lab`
 --
 ALTER TABLE `data_sampel`
   ADD PRIMARY KEY (`id_sampel`),
-  ADD KEY `id_customer` (`id_customer`),
-  ADD KEY `id_anamnesa` (`id_anamnesa`);
+  ADD KEY `id_customer` (`id_customer`);
 
 --
 -- Indexes for table `data_user`
@@ -257,7 +280,6 @@ ALTER TABLE `disposisi`
 -- Indexes for table `kaji_ulang`
 --
 ALTER TABLE `kaji_ulang`
-  ADD PRIMARY KEY (`id_kaji_ulang`),
   ADD KEY `kode_anamnesa` (`id_anamnesa`);
 
 --
@@ -299,8 +321,7 @@ ALTER TABLE `petugas_lab`
 -- Constraints for table `anamnesa`
 --
 ALTER TABLE `anamnesa`
-  ADD CONSTRAINT `anamnesa_ibfk_1` FOREIGN KEY (`id_sampel`) REFERENCES `data_sampel` (`id_sampel`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `anamnesa_ibfk_2` FOREIGN KEY (`id_anamnesa`) REFERENCES `disposisi` (`id_anamnesa`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `anamnesa_ibfk_1` FOREIGN KEY (`id_sampel`) REFERENCES `data_sampel` (`id_sampel`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `data_hasil_lab`
@@ -318,7 +339,8 @@ ALTER TABLE `data_sampel`
 -- Constraints for table `disposisi`
 --
 ALTER TABLE `disposisi`
-  ADD CONSTRAINT `disposisi_ibfk_1` FOREIGN KEY (`id_anamnesa`) REFERENCES `lab_jamur` (`id_anamnesa`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `disposisi_ibfk_1` FOREIGN KEY (`id_anamnesa`) REFERENCES `lab_jamur` (`id_anamnesa`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `disposisi_ibfk_2` FOREIGN KEY (`id_anamnesa`) REFERENCES `anamnesa` (`id_anamnesa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `kaji_ulang`
@@ -350,7 +372,6 @@ ALTER TABLE `lab_virus`
 ALTER TABLE `petugas_lab`
   ADD CONSTRAINT `petugas_lab_ibfk_1` FOREIGN KEY (`id_anamnesa`) REFERENCES `disposisi` (`id_anamnesa`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `petugas_lab_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `data_user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

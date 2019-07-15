@@ -23,6 +23,7 @@ $input = $this->input->post();
 $data = $this->db->get_where('data_customer',array('email_customer'=>$input['email'],'status'=>'online'))->row_array();
 if(password_verify($input['password'],$data['password'])){
 $sesi = array(
+'id_customer'       =>$data['id_customer'],
 'nama_depan'        =>$data['nama_depan'],
 'nama_belakang'     =>$data['nama_belakang'],
 'nama_lengkap'      =>$data['nama_lengkap'],
