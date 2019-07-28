@@ -6,7 +6,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url() ?>assets/images/favicon.png">
-<title>Matrix Template - The Ultimate Multipurpose admin template</title>
+<title>Silabmaju (Sistem Laboratorium Mamuju)</title>
 <link href="<?php echo base_url() ?>assets/libs/flot/css/float-chart.css" rel="stylesheet">
 <link href="<?php echo base_url('assets/') ?>dist/css/style.min.css" rel="stylesheet">
 <script src="<?php echo base_url() ?>assets/libs/jquery/dist/jquery.min.js"></script>

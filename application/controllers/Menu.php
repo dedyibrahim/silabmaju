@@ -21,7 +21,11 @@ if($this->input->post()){
 $input = $this->input->post();
 $sesi = $this->session->userdata();
 
-if($sesi['level_pekerjaan'] != $input['level']){
+if($sesi['level_pekerjaan'] == 'Super Admin'){
+$status = array(
+'status'    =>'success',
+);         
+}else if($sesi['level_pekerjaan'] != $input['level']){
 $status = array(
 'status'    =>'error',
 'message'   =>'Anda tidak memiliki hak akses'

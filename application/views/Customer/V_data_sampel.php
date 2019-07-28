@@ -9,7 +9,7 @@
 <div class="card">
 <div class="card-body">  
 <div class="col-12 d-flex no-block align-items-center">
-<h4 class="page-title">Data Anamnesa</h4>
+<h4 class="page-title">Data Anamnesa Masuk</h4>
 </div>
 <hr>
 <table style="width:100%;" id="data_anamnesa" class="table table-striped table-condensed table-sm table-bordered  table-hover table-sm"><thead>
@@ -123,7 +123,7 @@ sProcessing: "loading..."
 },
 processing: true,
 serverSide: true,
-ajax: {"url": "<?php echo base_url('Customer/json_data_sampel') ?> ", 
+ajax: {"url": "<?php echo base_url('Customer/json_data_sampel/Masuk') ?> ", 
 "type": "POST",
 data: function ( d ) {
 d.token = '<?php echo $this->security->get_csrf_hash(); ?>';

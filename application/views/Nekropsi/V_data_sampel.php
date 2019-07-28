@@ -58,9 +58,20 @@
           <label>Id Sampel</label>
           <input type="text" name="id_sampel" readonly="" class="form-control id_sampel required" accept="text/plain">
           <label>Pelaksana1</label>
-          <input type="text" name="pelaksana1" class="form-control pelaksana1 required" accept="text/plain">
+          <select name="pelaksana1" class="form-control pelaksana1 required" accept="text/plain">
+          <option></option>
+          <?php foreach ($data_user->result_array() as $d){ ?>
+          <option value="<?php echo$d['nama_lengkap'] ?>"><?php echo$d['nama_lengkap'] ?></option>
+          <?php } ?>
+          </select>
           <label>Pelaksana2</label>
-          <input type="text" name="pelaksana2" class="form-control pelaksana2 required" accept="text/plain">
+          <select name="pelaksana2" class="form-control pelaksana2 required" accept="text/plain">
+          <option></option>
+          <?php foreach ($data_user->result_array() as $d){ ?>
+          <option value="<?php echo$d['nama_lengkap'] ?>"><?php echo$d['nama_lengkap'] ?></option>
+          <?php } ?>
+          </select>
+          
           <label>Lokasi sampel</label>
           <input type="text" name="lokasi_sampel" class="form-control lokasi_sampel required" accept="text/plain">
               </div>
@@ -132,8 +143,8 @@ $(".simpan_user").attr("disabled", true);
 var token    = "<?php echo $this->security->get_csrf_hash() ?>";
 formData = new FormData();
 formData.append('id_sampel',$(".id_sampel").val()),
-formData.append('pelaksana1',$(".pelaksana1").val()),
-formData.append('pelaksana2',$(".pelaksana2").val()),
+formData.append('pelaksana1',$(".pelaksana1 option:selected").val()),
+formData.append('pelaksana2',$(".pelaksana2 option:selected").val()),
 formData.append('lokasi_sampel',$(".lokasi_sampel").val()),
 
 

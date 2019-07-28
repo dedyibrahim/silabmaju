@@ -11,18 +11,17 @@ $this->load->library('email');
 if($this->session->userdata('level_pekerjaan') !='Nekropsi'){
 redirect(base_url('Loginadmin'));    
 }
-
 }
 
-
 public function index(){
-$this->input_anamnesa();
-    
+$this->input_anamnesa();    
 }
 
 public function input_anamnesa(){
+$data_user = $this->db->get_where('data_user',array('level_pekerjaan !='=>'Super Admin','level_pekerjaan = '=>'Nekropsi'));
+
 $this->load->view('umum/V_header');
-$this->load->view('Nekropsi/V_data_sampel');    
+$this->load->view('Nekropsi/V_data_sampel',['data_user'=>$data_user]);    
 }
 
 public function proses(){
@@ -194,10 +193,7 @@ redirect(base_url('Loginadmin'));
 public function simpan_nekropsi(){
 if($this->input->post()){
 $input = $this->input->post();
-$id_anamnesa = "A".str_pad($this->db->get('anamnesa')->num_rows()+1,4,"0",STR_PAD_LEFT);  
-
-
-
+$id_anamnesa  = "A".str_pad($this->db->get('anamnesa')->num_rows()+1,4,"0",STR_PAD_LEFT);  
 
 $anamnesa = array(
 'id_anamnesa'   =>$id_anamnesa,   
@@ -227,6 +223,54 @@ $update_sampel = array(
 'status_sampel' =>'Proses'    
 );
 $this->db->update('data_sampel',$update_sampel,array('id_sampel'=>$input['id_sampel']));
+
+if($input['cek_parasit'] =='aktif'){
+    $id_disposisi = "DSPS".str_pad($this->db->get('disposisi')->num_rows()+1,4,"0",STR_PAD_LEFT);  
+
+$data_disposisi_parasit =array(
+'id_disposisi'      => $id_disposisi,
+'id_anamnesa'       => $id_anamnesa,
+'nama_distribusi'   => 'Lab Parasit',
+'status_distribusi' => 'Proses'  
+);   
+$this->db->insert('disposisi',$data_disposisi_parasit);
+}
+
+if($input['cek_virus'] =='aktif'){
+    $id_disposisi = "DSPS".str_pad($this->db->get('disposisi')->num_rows()+1,4,"0",STR_PAD_LEFT);  
+
+$data_disposisi_virus =array(
+'id_disposisi'      => $id_disposisi,
+'id_anamnesa'       => $id_anamnesa,
+'nama_distribusi'   => 'Lab Virus',
+'status_distribusi' => 'Proses'  
+);       
+$this->db->insert('disposisi',$data_disposisi_virus);
+}
+
+if($input['cek_bakteri'] =='aktif'){
+    $id_disposisi = "DSPS".str_pad($this->db->get('disposisi')->num_rows()+1,4,"0",STR_PAD_LEFT);  
+
+$data_disposisi_bakteri =array(
+'id_disposisi'      => $id_disposisi,
+'id_anamnesa'       => $id_anamnesa,
+'nama_distribusi'   => 'Lab Bakteri',
+'status_distribusi' => 'Proses'  
+);       
+$this->db->insert('disposisi',$data_disposisi_bakteri);
+}
+
+if($input['cek_jamur'] =='aktif'){
+$id_disposisi = "DSPS".str_pad($this->db->get('disposisi')->num_rows()+1,4,"0",STR_PAD_LEFT);  
+
+$data_disposisi_jamur =array(
+'id_disposisi'      => $id_disposisi,
+'id_anamnesa'       => $id_anamnesa,
+'nama_distribusi'   => 'Lab Jamur',
+'status_distribusi' => 'Proses'  
+);       
+$this->db->insert('disposisi',$data_disposisi_jamur);
+}
 
 
 

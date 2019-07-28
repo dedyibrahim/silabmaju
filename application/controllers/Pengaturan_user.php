@@ -49,7 +49,7 @@ $status = array(
 'message'   =>'Password yang dimasukan tidak sesuai'
 );    
 }else{
-$id_user  = $id_user    = "U".str_pad($this->db->get('data_user')->num_rows()+1,4,"0",STR_PAD_LEFT);  
+$id_user  = "U".str_pad($this->db->get('data_user')->num_rows()+1,4,"0",STR_PAD_LEFT);  
     
 $data =array(
 'id_user'                       =>$id_user,   
@@ -62,9 +62,7 @@ $data =array(
 'password'                      =>password_hash($input['password'],PASSWORD_DEFAULT),
 );
 
-
 $this->M_pengaturan_user->simpan_user($data);
-
 $status = array(
 'status'    =>'success',
 'message'   =>'Data user berhasil disimpan'
@@ -186,7 +184,6 @@ echo $this->M_pengaturan_user->json_data_customer();
 public function logout(){
 $this->session->sess_destroy();
 redirect(base_url('Loginadmin'));    
-
 }
 
 }
