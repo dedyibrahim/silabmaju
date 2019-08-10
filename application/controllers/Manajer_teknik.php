@@ -39,7 +39,7 @@ $data_lab = $this->M_teknik->data_where_anamnesa($input['id_anamnesa']);
 foreach ($data_lab->result_array() as $d){
 $petugas_lab       = $this->M_teknik->petugas_where($d['nama_distribusi']);
 
-echo "<div class='col-md-6'><h5 class='text-center'>Tentukan Petugas Parasit</h5><hr>"
+echo "<div class='col-md-6'><h5 class='text-center'>Tentukan Petugas ".$d['nama_distribusi']."</h5><hr>"
 ."<label>Tentukan petugas</label>"
 ."<select onchange=simpan_petugas('".$d['id_disposisi']."','".$input['id_anamnesa']."') class='form-control ".$d['id_disposisi']."'>"
 ."<option></option>";

@@ -89,4 +89,7 @@
   'material design icons' => array(
     'normal' => $fontDir . '/0536e088489088ae5eb5131d5c13cb4b',
   ),
+  'weathericons' => array(
+    'normal' => $fontDir . '/7faceffc10c7d6eab427f34e35bd23dc',
+  ),
 ) ?>

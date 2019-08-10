@@ -54,6 +54,8 @@
     <input type="text" name="hasil_uji" placeholder="hasil uji" class="form-control hasil_uji required" accept="text/plain">
     <label>Jumlah</label> 
     <input type="text" name="jumlah_uji" placeholder="jumlah uji" class="form-control jumlah_uji required" accept="text/plain">
+    <label>Metode Virus</label> 
+    <input type="text" name="metode_virus" placeholder="metode virus" class="form-control metode_virus required" accept="text/plain">
 </div>
 </div>
     <div class="modal-footer">
@@ -193,6 +195,7 @@ var token    = "<?php echo $this->security->get_csrf_hash() ?>";
 formData = new FormData();
 formData.append('hasil_uji',$(".hasil_uji").val()),
 formData.append('jumlah_uji',$(".jumlah_uji").val()),
+formData.append('metode_virus',$(".metode_virus").val()),
 formData.append('id_anamnesa',$(".id_anamnesa").val()),
 
 $.ajax({

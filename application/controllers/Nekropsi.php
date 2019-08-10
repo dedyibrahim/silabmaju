@@ -8,8 +8,11 @@ $this->load->model('M_nekropsi');
 $this->load->library('Datatables');
 $this->load->library('email');
 
-if($this->session->userdata('level_pekerjaan') !='Nekropsi'){
-redirect(base_url('Loginadmin'));    
+if($this->session->userdata('level_pekerjaan') =='Nekropsi' || $this->session->userdata('level_pekerjaan') =='Super Admin'){
+
+    
+}else{
+redirect(base_url('Loginadmin'));        
 }
 }
 

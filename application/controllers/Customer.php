@@ -161,7 +161,7 @@ function print_lhus_virus(){
 $query = $this->M_customer->data_lhus_virus($this->uri->segment(3));
 
     $this->pdf->setPaper('A4','potrait');
-    $this->pdf->filename = "LHUS.pdf";
+    $this->pdf->filename = "LHUSVIRUS.pdf";
     $this->pdf->load_view('laporan_pdf', ['query'=>$query]);
 
     

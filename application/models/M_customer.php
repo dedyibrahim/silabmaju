@@ -35,7 +35,8 @@ $this->db->select('data_customer.nama_lengkap,'
         . 'data_sampel.id_sampel,'
         . 'data_sampel.jenis_sampel,'
         . 'lab_virus.jumlah_virus,'
-        . 'lab_virus.hasil_virus');
+        . 'lab_virus.hasil_virus,'
+        . 'anamnesa.id_anamnesa');
 $this->db->from('anamnesa');
 $this->db->join('data_sampel', 'data_sampel.id_sampel = anamnesa.id_sampel');
 $this->db->join('data_customer', 'data_customer.id_customer = data_sampel.id_customer');

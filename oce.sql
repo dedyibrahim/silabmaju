@@ -21,7 +21,7 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 -- GTID state at the beginning of the backup 
 --
 
-SET @@GLOBAL.GTID_PURGED='4280100b-9d3e-11e9-b6e6-180373551e3a:1-565,
+SET @@GLOBAL.GTID_PURGED='4280100b-9d3e-11e9-b6e6-180373551e3a:1-617,
 70fdff0e-efa2-4f30-8019-2feea7315ee8:1-36:1000003-1000089';
 
 --
@@ -53,7 +53,7 @@ CREATE TABLE `anamnesa` (
 
 LOCK TABLES `anamnesa` WRITE;
 /*!40000 ALTER TABLE `anamnesa` DISABLE KEYS */;
-INSERT INTO `anamnesa` VALUES ('A0001','SL0001','Zaenudin Ngaciro','sandi apriyoga','Tambak ikan','aktif','aktif','aktif','aktif');
+INSERT INTO `anamnesa` VALUES ('A0001','SL0001','Zaenudin Ngaciro','sandi apriyoga','Tambak ikan','aktif','aktif','aktif','aktif'),('A0002','SL0003','Zaenudin Ngaciro','Zaenudin Ngaciro','Laut','aktif','aktif','aktif','aktif');
 /*!40000 ALTER TABLE `anamnesa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,7 +143,7 @@ CREATE TABLE `data_sampel` (
 
 LOCK TABLES `data_sampel` WRITE;
 /*!40000 ALTER TABLE `data_sampel` DISABLE KEYS */;
-INSERT INTO `data_sampel` VALUES ('SL0001','C0001','Ikan Cupang',20,'Jl.Raya Bogor KM 23 Jakarta Timur','2019-07-25','Ikan suka kejang-kejang','Laut','Proses'),('SL0002','C0001','Ikan Jaer',10,'Kurang tau','2019-07-26','Ikan suka kejang-kejang','Laut','Masuk'),('SL0003','C0001','Kepala Kakap Merah',1000,'Kepala kakap merah dengan berat 1000g','2019-07-27','white spot','Penangkaran','Masuk');
+INSERT INTO `data_sampel` VALUES ('SL0001','C0001','Ikan Cupang',20,'Jl.Raya Bogor KM 23 Jakarta Timur','2019-07-25','Ikan suka kejang-kejang','Laut','Proses'),('SL0002','C0001','Ikan Jaer',10,'Kurang tau','2019-07-26','Ikan suka kejang-kejang','Laut','Masuk'),('SL0003','C0001','Kepala Kakap Merah',1000,'Kepala kakap merah dengan berat 1000g','2019-07-27','white spot','Penangkaran','Proses');
 /*!40000 ALTER TABLE `data_sampel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -201,7 +201,7 @@ CREATE TABLE `disposisi` (
 
 LOCK TABLES `disposisi` WRITE;
 /*!40000 ALTER TABLE `disposisi` DISABLE KEYS */;
-INSERT INTO `disposisi` VALUES ('A0001','DSPS0001','Lab Parasit','Proses'),('A0001','DSPS0002','Lab Virus','Proses'),('A0001','DSPS0003','Lab Bakteri','Proses'),('A0001','DSPS0004','Lab Jamur','Proses');
+INSERT INTO `disposisi` VALUES ('A0001','DSPS0001','Lab Parasit','Proses'),('A0001','DSPS0002','Lab Virus','Proses'),('A0001','DSPS0003','Lab Bakteri','Proses'),('A0001','DSPS0004','Lab Jamur','Proses'),('A0002','DSPS0005','Lab Parasit','Proses'),('A0002','DSPS0006','Lab Virus','Proses'),('A0002','DSPS0007','Lab Bakteri','Proses'),('A0002','DSPS0008','Lab Jamur','Proses');
 /*!40000 ALTER TABLE `disposisi` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -230,7 +230,7 @@ CREATE TABLE `kaji_ulang` (
 
 LOCK TABLES `kaji_ulang` WRITE;
 /*!40000 ALTER TABLE `kaji_ulang` DISABLE KEYS */;
-INSERT INTO `kaji_ulang` VALUES ('A0001','si','si','si','si','si');
+INSERT INTO `kaji_ulang` VALUES ('A0001','si','si','si','si','si'),('A0002','siap','siap','siap','siap','siap');
 /*!40000 ALTER TABLE `kaji_ulang` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -325,10 +325,11 @@ CREATE TABLE `lab_virus` (
   `tgl_virus` date NOT NULL,
   `hasil_virus` char(100) NOT NULL,
   `jumlah_virus` varchar(100) NOT NULL,
+  `metode_virus` varchar(50) NOT NULL,
   PRIMARY KEY (`id_virus`),
   KEY `kode_anamnesa` (`id_anamnesa`),
   CONSTRAINT `lab_virus_ibfk_1` FOREIGN KEY (`id_anamnesa`) REFERENCES `anamnesa` (`id_anamnesa`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -337,7 +338,7 @@ CREATE TABLE `lab_virus` (
 
 LOCK TABLES `lab_virus` WRITE;
 /*!40000 ALTER TABLE `lab_virus` DISABLE KEYS */;
-INSERT INTO `lab_virus` VALUES (1,'A0001','2019-07-28','Flu Babi','75'),(2,'A0001','2019-07-28','Flu Burung','750');
+INSERT INTO `lab_virus` VALUES (3,'A0001','2019-08-10','White Spot','100','Mikroskopik'),(4,'A0001','2019-08-10','ecoli','90','Mikroskopik');
 /*!40000 ALTER TABLE `lab_virus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -366,7 +367,7 @@ CREATE TABLE `petugas_lab` (
 
 LOCK TABLES `petugas_lab` WRITE;
 /*!40000 ALTER TABLE `petugas_lab` DISABLE KEYS */;
-INSERT INTO `petugas_lab` VALUES ('PTG0001',NULL,NULL),('PTG0002',NULL,NULL),('PTG0003',NULL,NULL),('PTG0004',NULL,NULL),('PTG0005',NULL,NULL),('PTG0006',NULL,NULL),('PTG0007',NULL,NULL),('PTG0008',NULL,NULL),('PTG0009','DSPS0001','U0007'),('PTG0010','DSPS0001','U0011'),('PTG0011','DSPS0002','U0009'),('PTG0012','DSPS0002','U0013'),('PTG0013','DSPS0003','U0008'),('PTG0014','DSPS0003','U0010'),('PTG0015','DSPS0004','U0005'),('PTG0016','DSPS0004','U0006');
+INSERT INTO `petugas_lab` VALUES ('PTG0001',NULL,NULL),('PTG0002',NULL,NULL),('PTG0003',NULL,NULL),('PTG0004',NULL,NULL),('PTG0005',NULL,NULL),('PTG0006',NULL,NULL),('PTG0007',NULL,NULL),('PTG0008',NULL,NULL),('PTG0009',NULL,NULL),('PTG0010',NULL,NULL),('PTG0011',NULL,NULL),('PTG0012',NULL,NULL),('PTG0013',NULL,NULL),('PTG0014',NULL,NULL),('PTG0015',NULL,NULL),('PTG0016',NULL,NULL),('PTG0017','DSPS0001','U0007'),('PTG0018','DSPS0002','U0009'),('PTG0019','DSPS0003','U0008'),('PTG0020','DSPS0004','U0005');
 /*!40000 ALTER TABLE `petugas_lab` ENABLE KEYS */;
 UNLOCK TABLES;
 SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
@@ -380,4 +381,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-28 21:55:02
+-- Dump completed on 2019-08-10 13:20:48
