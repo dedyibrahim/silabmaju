@@ -9,6 +9,7 @@ function json_data_sampel($status){
     
 $this->datatables->select('disposisi.id_anamnesa,'
 .'data_sampel.jenis_sampel as jenis_sampel,'
+.'data_sampel.id_sampel as id_sampel,'
 .'data_sampel.berat_sampel as berat_sampel,'
 .'data_sampel.deskripsi_sampel as deskripsi_sampel,'
 .'data_sampel.tgl_input as tgl_input,'
@@ -24,13 +25,24 @@ $this->datatables->join('data_sampel','data_sampel.id_sampel = anamnesa.id_sampe
 $this->datatables->join('data_customer','data_customer.id_customer = data_sampel.id_customer');
 $this->datatables->group_by('anamnesa.id_anamnesa');
 $this->datatables->add_column('view',"<button onclick=proses_anamnesa('$1'); class='btn btn-sm btn-success '><i class='fa fa-plus'></i> Proses anamnesa</button>",'id_anamnesa');
+$this->datatables->add_column('view_proses',""
+        . "<button onclick=selesaikan_anamnesa('$2'); class='btn btn-sm btn-warning '><i class='fa fa-flag'></i></button> || " 
+        . "<button onclick=cek_status_lab('$2','$1'); class='btn btn-sm btn-success '><i class='fa fa-eye'></i> </button>"
+        . "",'id_anamnesa,id_sampel');
+$this->datatables->where('data_sampel.status_sampel',$status);
 return $this->datatables->generate();
 }
 
 
 function data_where_anamnesa($id_anamnesa){
-$query = $this->db->get_where('disposisi',array('id_anamnesa'=>$id_anamnesa));    
-return $query;       
+$this->db->select('*');
+$this->db->from('disposisi');
+$this->db->join('anamnesa', 'anamnesa.id_anamnesa = disposisi.id_anamnesa');
+$this->db->join('data_sampel', 'data_sampel.id_sampel = anamnesa.id_sampel');
+$this->db->where('anamnesa.id_anamnesa',$id_anamnesa);
+$query = $this->db->get();  
+return $query;
+    
 }
 
 function petugas_where($nama_lab){
@@ -57,6 +69,25 @@ $this->db->where('petugas_lab.id_disposisi',$id_disposisi);
 $query = $this->db->get();  
 
 return $query;
+}
+
+function data_disposisi($id_anamnesa){
+$query = $this->db->get_where('disposisi',array('id_anamnesa'=>$id_anamnesa));
+
+return $query;
+    
+}
+
+function data_user($id_sampel){
+ $this->db->select('data_customer.nama_lengkap,'
+         . 'data_customer.email_customer');
+$this->db->from('data_sampel');
+$this->db->join('data_customer', 'data_customer.id_customer = data_sampel.id_customer');
+$this->db->where('data_sampel.id_sampel',$id_sampel);
+$query = $this->db->get();  
+
+return $query;   
+    
 }
 
 }

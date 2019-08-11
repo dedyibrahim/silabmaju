@@ -1,9 +1,9 @@
 <div id="main-wrapper">
-<?php $this->load->view('umum/V_topbar_lab_virus') ?>
-<?php $this->load->view('umum/V_sidebar_lab_virus') ?>
+<?php $this->load->view('umum/V_topbar_lab_parasit') ?>
+<?php $this->load->view('umum/V_sidebar_lab_parasit') ?>
 <div class="page-wrapper">
 <div class="container-fluid">
-<?php $this->load->view('umum/V_data_virus') ?>
+<?php $this->load->view('umum/V_data_parasit') ?>
 <div class="row">
 <div class="col">    
 <div class="card">
@@ -46,7 +46,7 @@
 </button>
 </div>
 <div class="modal-body">
-<form  id="fileForm" method="post" action="<?php echo base_url('Lab_virus/simpan_hasil_uji') ?>">
+<form  id="fileForm" method="post" action="<?php echo base_url('Lab_parasit/simpan_hasil_uji') ?>">
     
 <div class="row">
     <label>Hasil uji</label> 
@@ -54,18 +54,17 @@
     <input type="text" name="hasil_uji" placeholder="hasil uji" class="form-control hasil_uji required" accept="text/plain">
     <label>Jumlah</label> 
     <input type="text" name="jumlah_uji" placeholder="jumlah uji" class="form-control jumlah_uji required" accept="text/plain">
-    <label>Metode Virus</label> 
-    <input type="text" name="metode_virus" placeholder="metode virus" class="form-control metode_virus required" accept="text/plain">
+    <label>Metode parasit</label> 
+    <input type="text" name="metode_parasit" placeholder="metode parasit" class="form-control metode_parasit required" accept="text/plain">
 </div>
 </div>
     <div class="modal-footer">
-        <button  class="btn btn-success btn-block btn-sm simpan_hasil_uji">Simpan hasil uji</button>
-    </div>  
-</form>    
+        <button type="submit" class="btn btn-success btn-block btn-sm simpan_hasil_uji">Simpan hasil uji</button>
+    </div>    
 </div>
 </div>
 </div>
-
+</form>
 
 <!-- Modal -->
 <div class="modal fade" id="hasil_uji" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -80,9 +79,9 @@
 <div class="modal-body data_hasil">
 
 </div>
-<div class='card-footer'>
-<button class='btn btn-success btn-block selesai_virus'>Selesaikan Hasil Uji <span class='fa fa-save'></span></button>
-</div>    
+<div class="modal-footer">
+        <button  class="btn btn-success btn-block btn-sm selesai_parasit">Simpan hasil uji</button>
+    </div>      
 </div>
 </div>
 </div>
@@ -121,7 +120,7 @@ sProcessing: "loading..."
 },
 processing: true,
 serverSide: true,
-ajax: {"url": "<?php echo base_url('Lab_virus/json_data_pekerjaan/Proses') ?> ", 
+ajax: {"url": "<?php echo base_url('Lab_parasit/json_data_pekerjaan/Proses') ?> ", 
 "type": "POST",
 data: function ( d ) {
 d.token = '<?php echo $this->security->get_csrf_hash(); ?>';
@@ -156,11 +155,11 @@ $('#buat_hasil_uji').modal('show');
 $(".id_anamnesa").val(id_anamnesa);
 }
 
-function hapus(id_virus,id_anamnesa){
+function hapus(id_parasit,id_anamnesa){
 $.ajax({
 type:"post",
-data:"id_virus="+id_virus,
-url:"<?php echo base_url("Lab_virus/hapus_virus") ?>",
+data:"id_parasit="+id_parasit,
+url:"<?php echo base_url("Lab_parasit/hapus_parasit") ?>",
 success:function(data){
 lihat_hasil(id_anamnesa);    
 }
@@ -172,7 +171,7 @@ var status = "Proses";
 $.ajax({
 type:"post",
 data:"id_anamnesa="+id_anamnesa+"&status="+status,
-url:"<?php echo base_url("Lab_virus/lihat_hasil") ?>",
+url:"<?php echo base_url("Lab_parasit/lihat_hasil") ?>",
 success:function(data){
 $(".data_hasil").html(data);    
 $('#hasil_uji').modal('show');    
@@ -200,7 +199,7 @@ var token    = "<?php echo $this->security->get_csrf_hash() ?>";
 formData = new FormData();
 formData.append('hasil_uji',$(".hasil_uji").val()),
 formData.append('jumlah_uji',$(".jumlah_uji").val()),
-formData.append('metode_virus',$(".metode_virus").val()),
+formData.append('metode_parasit',$(".metode_parasit").val()),
 formData.append('id_anamnesa',$(".id_anamnesa").val()),
 
 $.ajax({
@@ -236,7 +235,7 @@ return false;
 });
 
 $(document).ready(function(){
-$(".selesai_virus").click(function(){
+$(".selesai_parasit").click(function(){
 var id_disposisi  = $(".id_disposisi").val();
 
  Swal.fire({
@@ -253,7 +252,7 @@ var id_disposisi  = $(".id_disposisi").val();
      $.ajax({
          type:"post",
          data:"id_disposisi="+id_disposisi,
-         url:"<?php echo base_url('Lab_virus/selesai_virus')  ?>",
+         url:"<?php echo base_url('Lab_parasit/selesai_parasit')  ?>",
          success:function(){
     Swal.fire(
       'Terselesaikan!',
@@ -267,7 +266,6 @@ var id_disposisi  = $(".id_disposisi").val();
 });
 
 });
-
 </script> 
 
 

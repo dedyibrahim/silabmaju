@@ -158,15 +158,57 @@ redirect(404);
 }
 
 function print_lhus_virus(){
-$query = $this->M_customer->data_lhus_virus($this->uri->segment(3));
+$query       = $this->M_customer->data_lhus_virus($this->uri->segment(3));
+$data        = $query->row_array();
+$petugas_lab = $this->M_customer->petugas_lab($data['id_anamnesa'],'Lab Virus');
 
     $this->pdf->setPaper('A4','potrait');
     $this->pdf->filename = "LHUSVIRUS.pdf";
-    $this->pdf->load_view('laporan_pdf', ['query'=>$query]);
+    $this->pdf->load_view('laporan_pdf', ['query'=>$query,'petugas_lab'=>$petugas_lab]);
 
     
 }
+function print_lhus_jamur(){
+$query       = $this->M_customer->data_lhus_jamur($this->uri->segment(3));
+$data        = $query->row_array();
+$petugas_lab = $this->M_customer->petugas_lab($data['id_anamnesa'],'Lab Jamur');
 
+    $this->pdf->setPaper('A4','potrait');
+    $this->pdf->filename = "LHUSJAMUR.pdf";
+    $this->pdf->load_view('lhus_jamur', ['query'=>$query,'petugas_lab'=>$petugas_lab]);
+    
+}
+function print_lhus_bakteri(){
+$query       = $this->M_customer->data_lhus_bakteri($this->uri->segment(3));
+$data        = $query->row_array();
+$petugas_lab = $this->M_customer->petugas_lab($data['id_anamnesa'],'Lab Bakteri');
+
+    $this->pdf->setPaper('A4','potrait');
+    $this->pdf->filename = "LHUSBAKTERI.pdf";
+    $this->pdf->load_view('lhus_bakteri', ['query'=>$query,'petugas_lab'=>$petugas_lab]);
+    
+}
+function print_lhus_parasit(){
+$query       = $this->M_customer->data_lhus_parasit($this->uri->segment(3));
+$data        = $query->row_array();
+$petugas_lab = $this->M_customer->petugas_lab($data['id_anamnesa'],'Lab Parasit');
+
+    $this->pdf->setPaper('A4','potrait');
+    $this->pdf->filename = "LHUSPARASIT.pdf";
+    $this->pdf->load_view('lhus_parasit', ['query'=>$query,'petugas_lab'=>$petugas_lab]);
+    
+}
+
+public function print_lhu(){
+$id_sampel = $this->uri->segment(3);
+$query       = $this->M_customer->data_lhu($id_sampel);
+
+//$this->load->view('print_lhu',['query'=>$query]);
+    $this->pdf->setPaper('A4','potrait');
+    $this->pdf->filename = "LHU.pdf";
+    $this->pdf->load_view('print_lhu', ['query'=>$query]);
+    
+}
 
 
 }

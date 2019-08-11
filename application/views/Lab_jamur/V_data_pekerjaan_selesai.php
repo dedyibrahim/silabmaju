@@ -1,9 +1,9 @@
 <div id="main-wrapper">
-<?php $this->load->view('umum/V_topbar_lab_virus') ?>
-<?php $this->load->view('umum/V_sidebar_lab_virus') ?>
+<?php $this->load->view('umum/V_topbar_lab_jamur') ?>
+<?php $this->load->view('umum/V_sidebar_lab_jamur') ?>
 <div class="page-wrapper">
 <div class="container-fluid">
-<?php $this->load->view('umum/V_data_virus') ?>
+<?php $this->load->view('umum/V_data_jamur') ?>
 <div class="row">
 <div class="col">    
 <div class="card">
@@ -46,7 +46,7 @@
 </button>
 </div>
 <div class="modal-body">
-<form  id="fileForm" method="post" action="<?php echo base_url('Lab_virus/simpan_hasil_uji') ?>">
+<form  id="fileForm" method="post" action="<?php echo base_url('Lab_jamur/simpan_hasil_uji') ?>">
     
 <div class="row">
     <label>Hasil uji</label> 
@@ -54,14 +54,13 @@
     <input type="text" name="hasil_uji" placeholder="hasil uji" class="form-control hasil_uji required" accept="text/plain">
     <label>Jumlah</label> 
     <input type="text" name="jumlah_uji" placeholder="jumlah uji" class="form-control jumlah_uji required" accept="text/plain">
-    <label>Metode Virus</label> 
-    <input type="text" name="metode_virus" placeholder="metode virus" class="form-control metode_virus required" accept="text/plain">
+    <label>Metode Jamur</label> 
+    <input type="text" name="metode_jamur" placeholder="metode jamur" class="form-control metode_jamur required" accept="text/plain">
 </div>
 </div>
     <div class="modal-footer">
-        <button  class="btn btn-success btn-block btn-sm simpan_hasil_uji">Simpan hasil uji</button>
-    </div>  
-</form>    
+        <button type="submit" class="btn btn-success btn-block btn-sm simpan_hasil_uji">Simpan hasil uji</button>
+    </div>    
 </div>
 </div>
 </div>
@@ -79,9 +78,6 @@
 </div>
 <div class="modal-body data_hasil">
 
-</div>
-<div class='card-footer'>
-<button class='btn btn-success btn-block selesai_virus'>Selesaikan Hasil Uji <span class='fa fa-save'></span></button>
 </div>    
 </div>
 </div>
@@ -121,7 +117,7 @@ sProcessing: "loading..."
 },
 processing: true,
 serverSide: true,
-ajax: {"url": "<?php echo base_url('Lab_virus/json_data_pekerjaan/Proses') ?> ", 
+ajax: {"url": "<?php echo base_url('Lab_jamur/json_data_pekerjaan/Selesai') ?> ", 
 "type": "POST",
 data: function ( d ) {
 d.token = '<?php echo $this->security->get_csrf_hash(); ?>';
@@ -136,7 +132,7 @@ columns: [
 {"data": "jenis_sampel"},
 {"data": "gejala"},
 {"data": "asal_sampel"},
-{"data": "view"}
+{"data": "view_selesai"}
 
 ],
 order: [[0, 'desc']],
@@ -156,11 +152,11 @@ $('#buat_hasil_uji').modal('show');
 $(".id_anamnesa").val(id_anamnesa);
 }
 
-function hapus(id_virus,id_anamnesa){
+function hapus(id_jamur,id_anamnesa){
 $.ajax({
 type:"post",
-data:"id_virus="+id_virus,
-url:"<?php echo base_url("Lab_virus/hapus_virus") ?>",
+data:"id_jamur="+id_jamur,
+url:"<?php echo base_url("Lab_jamur/hapus_jamur") ?>",
 success:function(data){
 lihat_hasil(id_anamnesa);    
 }
@@ -168,11 +164,11 @@ lihat_hasil(id_anamnesa);
 }
 
 function lihat_hasil(id_anamnesa){
-var status = "Proses";
+var status = "Selesai";
 $.ajax({
 type:"post",
 data:"id_anamnesa="+id_anamnesa+"&status="+status,
-url:"<?php echo base_url("Lab_virus/lihat_hasil") ?>",
+url:"<?php echo base_url("Lab_jamur/lihat_hasil") ?>",
 success:function(data){
 $(".data_hasil").html(data);    
 $('#hasil_uji').modal('show');    
@@ -200,7 +196,7 @@ var token    = "<?php echo $this->security->get_csrf_hash() ?>";
 formData = new FormData();
 formData.append('hasil_uji',$(".hasil_uji").val()),
 formData.append('jumlah_uji',$(".jumlah_uji").val()),
-formData.append('metode_virus',$(".metode_virus").val()),
+formData.append('metode_jamur',$(".metode_jamur").val()),
 formData.append('id_anamnesa',$(".id_anamnesa").val()),
 
 $.ajax({
@@ -234,40 +230,6 @@ title: r.message
 return false; 
 }
 });
-
-$(document).ready(function(){
-$(".selesai_virus").click(function(){
-var id_disposisi  = $(".id_disposisi").val();
-
- Swal.fire({
-  title: 'Ingin menyelesaikan pekerjaan?',
-  text: "Jika diselesaikan anda tidak bisa melakukan perubahan",
-  type: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'Ya selesaikan'
-}).then((result) => {
-  if (result.value) {
-      
-     $.ajax({
-         type:"post",
-         data:"id_disposisi="+id_disposisi,
-         url:"<?php echo base_url('Lab_virus/selesai_virus')  ?>",
-         success:function(){
-    Swal.fire(
-      'Terselesaikan!',
-      'success'
-    )         
-         }
-     }); 
-  }
-})
-
-});
-
-});
-
 </script> 
 
 

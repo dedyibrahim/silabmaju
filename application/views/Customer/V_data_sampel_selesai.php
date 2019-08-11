@@ -40,6 +40,11 @@
 </body>
 
 <script type="text/javascript">
+function print_lhu(id_sampel){
+window.location.href="<?php echo base_url('Customer/print_lhu/') ?>"+id_sampel;
+}    
+    
+    
 $("#fileForm").submit(function(e) {
 e.preventDefault();
 $.validator.messages.required = '';
@@ -142,7 +147,7 @@ columns: [
 {"data": "gejala"},
 {"data": "asal_sampel"},
 {"data": "status_sampel"},
-{"data": "view"}
+{"data": "view_selesai"}
 
 ],
 order: [[0, 'desc']],

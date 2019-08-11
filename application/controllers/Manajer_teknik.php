@@ -19,7 +19,15 @@ redirect(base_url('Loginadmin'));
 
 public function index(){
 $this->load->view('umum/V_header');
+$this->load->view('Teknik/V_data_sampel_masuk');        
+}
+public function proses(){
+$this->load->view('umum/V_header');
 $this->load->view('Teknik/V_data_sampel_proses');        
+}
+public function selesai(){
+$this->load->view('umum/V_header');
+$this->load->view('Teknik/V_data_sampel_selesai');        
 }
 
 
@@ -36,6 +44,9 @@ public function ambil_data_lab(){
 if($this->input->post()){
 $input = $this->input->post();
 $data_lab = $this->M_teknik->data_where_anamnesa($input['id_anamnesa']);
+$id_sampel = $data_lab->row_array();
+
+
 foreach ($data_lab->result_array() as $d){
 $petugas_lab       = $this->M_teknik->petugas_where($d['nama_distribusi']);
 
@@ -58,12 +69,50 @@ echo"<tr>"
    . "</tr>";
 }
 
-echo "</table></div>";    
+echo "</table></div>";
+
 }
+echo   '<button onclick=update_disposisi("'.$id_sampel['id_sampel'].'"); class="btn btn-success btn-block selesai_disposisikan">Selesai Disposisikan</button>';
+   
+
 
 }else{
 redirect(404);    
 }     
+}
+
+public function cek_status_lab(){
+if($this->input->post()){
+$input = $this->input->post();
+
+$data_disposisi = $this->M_teknik->data_disposisi($input['id_anamnesa']);
+
+echo "<table class='table table-sm table-bordered table-stripped'>"
+."<thead>"
+. "<tr>"
+. "<th>No</th>"
+. "<th>Nama Lab</th>"
+. "<th>Status Lab</th>"
+. "</tr>"
+. "<thead>";
+
+$no =1;
+foreach ($data_disposisi->result_array() as $d){
+echo "<tr>"
+    . "<td>".$no++."</td>"
+    . "<td>".$d['nama_distribusi']."</td>"
+    . "<td>".$d['status_distribusi']."</td>"
+    . "</tr>";    
+}
+
+
+echo" </table>";
+
+    
+}else{
+redirect(404);    
+}    
+    
 }
 
 public function simpan_petugas_lab(){
@@ -120,5 +169,70 @@ redirect(404);
 }
     
 }
+
+public function selesaikan_pekerjaan(){
+ if($this->input->post()){
+ $input  = $this->input->post();    
+     
+ $data_customer = $this->M_teknik->data_user($input['id_sampel'])->row_array();    
+     
+$config = Array(
+'protocol' => 'smtp',
+'smtp_host' => 'ssl://smtp.googlemail.com',
+'smtp_port' => 465,
+'smtp_user' => 'ronilece18@gmail.com',
+'smtp_pass' => 'alfiansyah18',
+'mailtype' => 'html',
+'charset' => 'iso-8859-1',
+'wordwrap' => TRUE
+);   
+$this->email->initialize($config);
+$this->email->set_newline("\r\n");
+$this->email->from("ronilece18@gmail.com");
+$this->email->to($data_customer['email_customer']);
+$this->email->subject('Konfirmasi Silabmaju');
+
+$data_kirim  ="<h3>Pemohon atas nama ".$data_customer['nama_lengkap']." </h3><br>";
+$data_kirim .="<p>Uji Lab dengan No. Sample ".$input['id_sampel']." Telah selesai"
+            . "<br>Silahkan Cek Melalui Link berikut ". base_url()."</p>";
+$data_kirim .="<p>Silahkan Print LHU yang telah tersedia kemudian segera laporkan kepada BKIPM mamuju untuk melakukan pengecapan</p>";
+$this->email->message($data_kirim);
+if (!$this->email->send()){    
+echo $this->email->print_debugger();
+
+}else{
+
+$data = array(
+'status_sampel' => 'Selesai'
+);
+
+$this->db->update('data_sampel',$data,array('id_sampel'=>$this->input->post('id_sampel')));
+    
+}
+ 
+}else{
+redirect(404);   
+}
+    
+}
+
+public function update_sampel(){
+ if($this->input->post()){
+     $input = $this->input->post();
+  $data = array(
+   'status_sampel' =>'Proses',   
+  );   
+  $this->db->update('data_sampel',$data,array('id_sampel'=>$input['id_sampel']));
+     $status = array(
+'status'    =>'success',
+'message'   =>'Sampel Berhasil diperbaharui'
+); 
+     echo json_encode($status);
+ }else{
+     redirect(404);   
+ }   
+}
+
+
 
 }

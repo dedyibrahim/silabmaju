@@ -35,37 +35,6 @@
 </div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="buat_hasil_uji" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-<div class="modal-dialog  modal-md modal-dialog-centered" role="document">
-<div class="modal-content">
-<div class="modal-header">
-<h5 class="modal-title" id="exampleModalCenterTitle">Berikan hasil uji</h5>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
-</div>
-<div class="modal-body">
-<form  id="fileForm" method="post" action="<?php echo base_url('Lab_virus/simpan_hasil_uji') ?>">
-    
-<div class="row">
-    <label>Hasil uji</label> 
-    <input type="hidden" name="id_anamnesa" placeholder="id_anamnesa" class="form-control id_anamnesa required" accept="text/plain">
-    <input type="text" name="hasil_uji" placeholder="hasil uji" class="form-control hasil_uji required" accept="text/plain">
-    <label>Jumlah</label> 
-    <input type="text" name="jumlah_uji" placeholder="jumlah uji" class="form-control jumlah_uji required" accept="text/plain">
-    <label>Metode Virus</label> 
-    <input type="text" name="metode_virus" placeholder="metode virus" class="form-control metode_virus required" accept="text/plain">
-</div>
-</div>
-    <div class="modal-footer">
-        <button  class="btn btn-success btn-block btn-sm simpan_hasil_uji">Simpan hasil uji</button>
-    </div>  
-</form>    
-</div>
-</div>
-</div>
-
 
 <!-- Modal -->
 <div class="modal fade" id="hasil_uji" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -80,9 +49,6 @@
 <div class="modal-body data_hasil">
 
 </div>
-<div class='card-footer'>
-<button class='btn btn-success btn-block selesai_virus'>Selesaikan Hasil Uji <span class='fa fa-save'></span></button>
-</div>    
 </div>
 </div>
 </div>
@@ -121,7 +87,7 @@ sProcessing: "loading..."
 },
 processing: true,
 serverSide: true,
-ajax: {"url": "<?php echo base_url('Lab_virus/json_data_pekerjaan/Proses') ?> ", 
+ajax: {"url": "<?php echo base_url('Lab_virus/json_data_pekerjaan/Selesai') ?> ", 
 "type": "POST",
 data: function ( d ) {
 d.token = '<?php echo $this->security->get_csrf_hash(); ?>';
@@ -136,7 +102,7 @@ columns: [
 {"data": "jenis_sampel"},
 {"data": "gejala"},
 {"data": "asal_sampel"},
-{"data": "view"}
+{"data": "view_selesai"}
 
 ],
 order: [[0, 'desc']],
@@ -168,7 +134,7 @@ lihat_hasil(id_anamnesa);
 }
 
 function lihat_hasil(id_anamnesa){
-var status = "Proses";
+var status = "Selesai";
 $.ajax({
 type:"post",
 data:"id_anamnesa="+id_anamnesa+"&status="+status,

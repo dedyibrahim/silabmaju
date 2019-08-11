@@ -20,7 +20,7 @@
     </div>
     <br>
 <div class="col-sm-12">
-    <u>This is to certit'z that :</u> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Hasil Lab Virus (Still) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tanggal : <?php echo date('d F Y ') ?><br>
+    <u>This is to certit'z that :</u> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Hasil Lab Jamur &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tanggal : <?php echo date('d F Y ') ?><br>
 <i>Menyatakan bahwa</i>
 </div>
     <br>    
@@ -52,13 +52,13 @@
         </tr>
     </thead>
     <tbody>
-        <?php $totrow = $query->num_rows();  $no =1;foreach ($query->result_array() as $d){ ?>
+        <?php  $no =1;foreach ($query->result_array() as $d){ ?>
         <tr>
             <td><?php echo $no++ ?></td>
             <td > VIRUS </td>
-            <td><?php echo $d['hasil_virus'] ?></td>
-            <td><?php echo $d['metode_virus'] ?></td>
-            <td><?php echo $d['jumlah_virus'] ?></td>
+            <td><?php echo $d['hasil_parasit'] ?></td>
+            <td><?php echo $d['metode_parasit'] ?></td>
+            <td><?php echo $d['jumlah_parasit'] ?></td>
        </tr>
         <?php } ?>
     </tbody>

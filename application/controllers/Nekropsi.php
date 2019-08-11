@@ -223,7 +223,7 @@ $kaji_ulang = array(
 $this->db->insert('kaji_ulang',$kaji_ulang);
 
 $update_sampel = array(
-'status_sampel' =>'Proses'    
+'status_sampel' =>'Disposisi'    
 );
 $this->db->update('data_sampel',$update_sampel,array('id_sampel'=>$input['id_sampel']));
 

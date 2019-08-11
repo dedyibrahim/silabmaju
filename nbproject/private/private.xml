@@ -2,6 +2,18 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/var/www/silabmaju/application/views/Lab_jamur/V_data_pekerjaan.php</file>
+            <file>file:/var/www/silabmaju/application/views/laporan_pdf.php</file>
+            <file>file:/var/www/silabmaju/application/models/M_lab_virus.php</file>
+            <file>file:/var/www/silabmaju/application/models/M_customer.php</file>
+            <file>file:/var/www/silabmaju/application/controllers/Lab_virus.php</file>
+            <file>file:/var/www/silabmaju/application/models/M_lab_jamur.php</file>
+            <file>file:/var/www/silabmaju/application/controllers/Lab_bakteri.php</file>
+            <file>file:/var/www/silabmaju/application/controllers/Customer.php</file>
+            <file>file:/var/www/silabmaju/application/controllers/Lab_jamur.php</file>
+            <file>file:/var/www/silabmaju/application/views/lhus_jamur.php</file>
+            <file>file:/var/www/silabmaju/application/views/umum/V_topbar_lab_jamur.php</file>
+        </group>
     </open-files>
 </project-private>

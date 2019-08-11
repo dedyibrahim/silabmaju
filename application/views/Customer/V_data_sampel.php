@@ -23,7 +23,6 @@
 <th  align="center" aria-controls="datatable-fixed-header" >Gejala</th>
 <th  align="center" aria-controls="datatable-fixed-header" >Asal Sampel</th>
 <th  align="center" aria-controls="datatable-fixed-header" >Status Sampel</th>
-<th  align="center" aria-controls="datatable-fixed-header" >Aksi</th>
 </thead>
 <tbody align="center">
 </table>
@@ -141,8 +140,7 @@ columns: [
 {"data": "tgl_input"},
 {"data": "gejala"},
 {"data": "asal_sampel"},
-{"data": "status_sampel"},
-{"data": "view"}
+{"data": "status_sampel"}
 
 ],
 order: [[0, 'desc']],

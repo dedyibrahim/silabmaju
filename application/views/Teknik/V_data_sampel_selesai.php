@@ -24,7 +24,6 @@
 <th  align="center" aria-controls="datatable-fixed-header" >Gejala</th>
 <th  align="center" aria-controls="datatable-fixed-header" >Asal Sampel</th>
 <th  align="center" aria-controls="datatable-fixed-header" >Status Sampel</th>
-<th  width="10%" align="center" aria-controls="datatable-fixed-header" >Aksi</th>
 </thead>
 <tbody align="center">
 </table>
@@ -59,91 +58,10 @@
 </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="cek_status_lab" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-<div class="modal-dialog  modal-lg modal-dialog-centered" role="document">
-<div class="modal-content">
-<div class="modal-header">
-<h5 class="modal-title" id="exampleModalCenterTitle">Cek Status Masing Masing Lab</h5>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
-</div>
-<div class="modal-body">
-<div class="row cek_status_lab">
-
-</div>
-</div>
-</div>
-</div>
-</div>
-
 
 </body>
 
 <script type="text/javascript">
-function cek_status_lab(id_sampel,id_anamnesa){
-$.ajax({
-type:"post",
-data:"id_anamnesa="+id_anamnesa,
-url:"<?php echo base_url("Manajer_teknik/cek_status_lab") ?>",
-success:function(data){
-
-$(".cek_status_lab").html(data);    
-$('#cek_status_lab').modal('show');    
-    
-}
-});
-}    
-    
-    
-function response(data){
-var r = JSON.parse(data);
-const Toast = Swal.mixin({
-toast: true,
-position: 'center',
-showConfirmButton: false,
-timer: 3000,
-animation: false,
-customClass: 'animated bounceInDown'
-});
-
-Toast.fire({
-type: r.status,
-title: r.message
-});   
-}    
-    
-    
-function selesaikan_anamnesa(id_sampel){
-Swal.fire({
-  title: 'Ingin menyelesaikan pekerjaan?',
-  text: "Jika diselesaikan anda tidak bisa melakukan perubahan",
-  type: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'Ya selesaikan'
-}).then((result) => {
-  if (result.value) {
-      
-     $.ajax({
-         type:"post",
-         data:"id_sampel="+id_sampel,
-         url:"<?php echo base_url('Manajer_teknik/selesaikan_pekerjaan')  ?>",
-         success:function(){
-    Swal.fire(
-      'Terselesaikan!',
-      'success'
-    )         
-         }
-     }); 
-  }
-})   
-}    
-   
-    
-    
 function hapus_petugas(id_petugas,id_anamnesa){
 $.ajax({
 type:"post",
@@ -300,7 +218,8 @@ sProcessing: "loading..."
 },
 processing: true,
 serverSide: true,
-ajax: {"url": "<?php echo base_url('Manajer_teknik/json_data_sampel/Proses') ?> ", 
+ajax: {
+ "url": "<?php echo base_url('Manajer_teknik/json_data_sampel/Selesai') ?> ", 
 "type": "POST",
 data: function ( d ) {
 d.token = '<?php echo $this->security->get_csrf_hash(); ?>';
@@ -319,8 +238,7 @@ columns: [
 {"data": "tgl_input"},
 {"data": "gejala"},
 {"data": "asal_sampel"},
-{"data": "status_sampel"},
-{"data": "view_proses"}
+{"data": "status_sampel"}
 
 ],
 order: [[0, 'desc']],
